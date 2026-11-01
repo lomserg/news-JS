@@ -1,12 +1,13 @@
 import AppLoader from './appLoader';
+import type { NewsResponse, SourcesResponse } from '../../types';
 
 class AppController extends AppLoader {
     getSources(
-        callback: (data: unknown) => void = () => {
+        callback: (data: SourcesResponse) => void = () => {
             console.error('No callback for GET response');
         }
     ) {
-        super.getResp(
+        super.getResp<SourcesResponse>(
             {
                 endpoint: 'sources',
             },
@@ -14,7 +15,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: MouseEvent, callback: (data: unknown) => void) {
+    getNews<NewsResponse>(e: MouseEvent, callback: (data: NewsResponse) => void) {
         let target = e.target;
         if (!target) {
             return;

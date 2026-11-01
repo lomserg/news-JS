@@ -1,6 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-
+import type { NewsResponse } from '../../types';
+import type { SourcesResponse } from '../../types';
 class App {
     controller: AppController;
     view: AppView;
@@ -10,12 +11,14 @@ class App {
     }
 
     start() {
-        const sources = document.querySelector('.sources');
+        const sources = document.querySelector<HTMLElement>('.sources');
         if (!sources) {
             throw new Error('Element .sources not found');
         }
-        sources.addEventListener('click', (e) => this.controller.getNews(e, (data) => this.view.drawNews(data)));
-        this.controller.getSources((data) => this.view.drawSources(data));
+        sources.addEventListener('click', (e: MouseEvent) =>
+            this.controller.getNews(e, (data: NewsResponse) => this.view.drawNews(data))
+        );
+        this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
     }
 }
 

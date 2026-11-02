@@ -1,21 +1,21 @@
 import AppLoader from './appLoader';
 import type { NewsResponse, SourcesResponse } from '../../types';
-
+import { ApiEndpoint } from '../../types';
 class AppController extends AppLoader {
-    getSources(
+    public getSources(
         callback: (data: SourcesResponse) => void = () => {
             console.error('No callback for GET response');
         }
     ) {
         super.getResp<SourcesResponse>(
             {
-                endpoint: 'sources',
+                endpoint: ApiEndpoint.Sources,
             },
             callback
         );
     }
 
-    getNews<NewsResponse>(e: MouseEvent, callback: (data: NewsResponse) => void) {
+    public getNews(e: MouseEvent, callback: (data: NewsResponse) => void) {
         let target = e.target;
         if (!target) {
             return;
@@ -37,9 +37,9 @@ class AppController extends AppLoader {
                 }
                 if (newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
+                    super.getResp<NewsResponse>(
                         {
-                            endpoint: 'everything',
+                            endpoint: ApiEndpoint.Everything,
                             options: {
                                 sources: sourceId,
                             },

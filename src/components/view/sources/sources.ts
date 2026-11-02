@@ -1,7 +1,7 @@
 import './sources.css';
 import type { Source } from '../../../types';
 class Sources {
-    draw(data: Source[]) {
+    public draw(data: Source[]) {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
         if (!sourceItemTemp) {

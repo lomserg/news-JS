@@ -1,7 +1,7 @@
 import './news.css';
 import type { Article } from '../../../types';
 class News {
-    draw(data: Article[]) {
+    public draw(data: Article[]) {
         const news = data.slice(0, 10);
 
         const fragment = document.createDocumentFragment();
@@ -59,7 +59,6 @@ class News {
             newsElem.innerHTML = '';
             newsElem.appendChild(fragment);
         }
-        // document.querySelector('.news').appendChild(fragment);
     }
 }
 

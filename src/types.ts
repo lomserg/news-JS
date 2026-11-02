@@ -19,3 +19,10 @@ export interface NewsResponse {
 export interface SourcesResponse {
     sources: Source[];
 }
+export enum ApiEndpoint {
+    Sources = 'sources',
+    Everything = 'everything',
+}
+export type ArticlePreview = Pick<Article, 'title' | 'url' | 'publishedAt'>;
+export type ArticleUpdate = Partial<Article>;
+export type ReadonlyArticle = Readonly<Article>;

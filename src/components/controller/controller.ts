@@ -1,27 +1,45 @@
 import AppLoader from './appLoader';
-
+import type { NewsResponse, SourcesResponse } from '../../types';
+import { ApiEndpoint } from '../../types';
 class AppController extends AppLoader {
-    getSources(callback) {
-        super.getResp(
+    public getSources(
+        callback: (data: SourcesResponse) => void = () => {
+            console.error('No callback for GET response');
+        }
+    ) {
+        super.getResp<SourcesResponse>(
             {
-                endpoint: 'sources',
+                endpoint: ApiEndpoint.Sources,
             },
             callback
         );
     }
 
-    getNews(e, callback) {
+    public getNews(e: MouseEvent, callback: (data: NewsResponse) => void) {
         let target = e.target;
+        if (!target) {
+            return;
+        }
+
         const newsContainer = e.currentTarget;
+        if (!(newsContainer instanceof Element)) {
+            return;
+        }
 
         while (target !== newsContainer) {
+            if (!(target instanceof Element)) {
+                return;
+            }
             if (target.classList.contains('source__item')) {
                 const sourceId = target.getAttribute('data-source-id');
+                if (!sourceId) {
+                    return;
+                }
                 if (newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
+                    super.getResp<NewsResponse>(
                         {
-                            endpoint: 'everything',
+                            endpoint: ApiEndpoint.Everything,
                             options: {
                                 sources: sourceId,
                             },

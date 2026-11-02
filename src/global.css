@@ -33,3 +33,21 @@ footer .copyright a:hover {
 footer .copyright:before {
     content: '©';
 }
+footer {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+footer a {
+    color: #fff;
+}
+
+footer img {
+    width: 100px;
+    filter: invert();
+}
